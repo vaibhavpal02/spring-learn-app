@@ -6,6 +6,7 @@ import com.vaibhavpal.springlearnapp.Service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path="/employees")
@@ -28,10 +29,9 @@ public class EmployeeController
         this.employeeService=employeeService;
     }
 
-    @GetMapping(path="/{employeeId}")
-    public EmployeeDTO getemployeebyID(@PathVariable Long employeeID)
-    {
-        return employeeService.getemployeebyID(employeeID);
+    @GetMapping("/{employeeId}")
+    public EmployeeDTO getemployeebyID(@PathVariable Long employeeId) {
+        return employeeService.getemployeebyID(employeeId);
     }
 
     @GetMapping
@@ -47,5 +47,21 @@ public class EmployeeController
         return employeeService.createEmployee(inputEmployee);
     }
 
+    @PutMapping("/{employeeId}")
+    public EmployeeDTO updateemployeebyID(@RequestBody EmployeeDTO employeeDTO,@PathVariable Long employeeId)
+    {
+        return employeeService.updateemployeebyID(employeeId,employeeDTO);
+    }
 
+    @DeleteMapping("/{employeeId}")
+    public void deleteemployeeId(@PathVariable Long employeeId)
+    {
+        employeeService.deleteemployeeId(employeeId);
+    }
+
+    @PatchMapping("/{employeeId}")
+    public EmployeeDTO updatepartialdetailsbyID(@RequestBody Map<String,Object> updates, @PathVariable Long employeeId)
+    {
+        return employeeService.updatepartialdetailsbyID(employeeId,updates);
+    }
 }
