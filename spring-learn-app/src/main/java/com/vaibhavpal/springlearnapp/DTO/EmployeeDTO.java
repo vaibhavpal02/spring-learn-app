@@ -1,75 +1,51 @@
 package com.vaibhavpal.springlearnapp.DTO;
 
+import com.vaibhavpal.springlearnapp.annotations.EmployeeRoleValidation;
+import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
 public class EmployeeDTO {
+
     private Long id;
+
+    @NotBlank(message = "Name not null, as well as not empty.")
+    @Size(min = 3, max = 10, message = "No. of character should be in range [3-10]")
     private String name;
+
+    @Email(message = "Enter a valid email.")
     private String email;
+
+    @Min(value = 18, message = "Age cannot be less than 18")
+    @Max(value = 80, message = "Age cannot be more than 80.")
     private Integer age;
+
     private LocalDate doj;
-    private boolean isActive;
 
-    public Long getId() {
-        return id;
-    }
+//    @Pattern(regexp = "^(ADMIN|USER)$", message = "Role must be ADMIN or USER")
+    @EmployeeRoleValidation
+    private String role;
 
-    public String getName() {
-        return name;
-    }
+    @NotNull
+    @Positive(message="Can't be negative")
+    private Integer salary;
 
-    public String getEmail() {
-        return email;
-    }
+    private boolean active;
 
-    public Integer getAge() {
-        return age;
-    }
+    public EmployeeDTO() {}
 
-    public LocalDate getDoj() {
-        return doj;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public void setDoj(LocalDate doj) {
-        this.doj = doj;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public EmployeeDTO()
-    {
-
-    }
-    public EmployeeDTO(Long id, String name, String email, Integer age, LocalDate doj, boolean isActive) {
+    public EmployeeDTO(Long id, String name, String email, Integer age, LocalDate doj, String role,Integer salary, boolean active) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
         this.doj = doj;
-        this.isActive = isActive;
+        this.role = role;
+        this.salary=salary;
+        this.active = active;
     }
-
 }
-

@@ -3,6 +3,7 @@ package com.vaibhavpal.springlearnapp.controllers;
 import com.vaibhavpal.springlearnapp.DTO.EmployeeDTO;
 import com.vaibhavpal.springlearnapp.Entities.EmployeeEntity;
 import com.vaibhavpal.springlearnapp.Service.EmployeeService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public class EmployeeController
 
 
     @PostMapping
-    public EmployeeDTO createEmployee(@RequestBody EmployeeDTO inputEmployee)
+    public EmployeeDTO createEmployee(@RequestBody @Valid EmployeeDTO inputEmployee)
     {
         return employeeService.createEmployee(inputEmployee);
     }
