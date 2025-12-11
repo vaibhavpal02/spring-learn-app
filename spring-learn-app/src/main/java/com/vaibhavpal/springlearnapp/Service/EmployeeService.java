@@ -3,6 +3,7 @@ package com.vaibhavpal.springlearnapp.Service;
 import com.vaibhavpal.springlearnapp.DTO.EmployeeDTO;
 import com.vaibhavpal.springlearnapp.Entities.EmployeeEntity;
 import com.vaibhavpal.springlearnapp.Respository.EmployeeRepository;
+import com.vaibhavpal.springlearnapp.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -11,6 +12,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +29,7 @@ public class EmployeeService
     public EmployeeDTO getemployeebyID(Long employeeId) {
 
         EmployeeEntity employeeEntity = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found "+employeeId));
 
         return modelMapper.map(employeeEntity, EmployeeDTO.class);
     }
@@ -69,7 +71,7 @@ public class EmployeeService
     public EmployeeDTO updatepartialdetailsbyID(Long employeeId, Map<String, Object> updates) {
 
         EmployeeEntity employeeEntity = employeeRepository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee not found with id: " + employeeId));
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found "));
 
         updates.forEach((field, value) -> {
             Field fieldToBeUpdated = ReflectionUtils.findField(EmployeeEntity.class, field);

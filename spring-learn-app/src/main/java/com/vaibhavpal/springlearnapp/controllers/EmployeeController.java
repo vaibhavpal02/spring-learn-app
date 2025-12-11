@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping(path="/employees")
@@ -47,6 +48,12 @@ public class EmployeeController
     {
         return employeeService.createEmployee(inputEmployee);
     }
+
+//    @ExceptionHandler(NoSuchElementException.class)
+//    public String handleemployeefound(NoSuchElementException exception)
+//    {
+//         return "Employee not found";
+//    }
 
     @PutMapping("/{employeeId}")
     public EmployeeDTO updateemployeebyID(@RequestBody EmployeeDTO employeeDTO,@PathVariable Long employeeId)
